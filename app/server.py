@@ -78,7 +78,35 @@ async def analyze(request):
     img_data = await request.form()
     img_bytes = await (img_data['file'].read())
     img = open_image(BytesIO(img_bytes))
-    prediction = learn.predict(img)[0]
+    # prediction = learn.predict(img)[0]
+    
+    pred_class, pred_idx, outputs = learn.predict(img, thresh=0.2)
+    
+    # return pokemon type(s) from output tensor using thresh=0.2
+    # if >=2 types are prediced, choose first two types from pred_class
+    # if 1 type is predicted, choose that one type
+    # if 0 types are predicted, choose top two values from output tensor
+    # map between classes and output tensor
+    
+    mapping = sorted(zip(classes, outputs), key=lambda x: x[1], reverse=True)
+  
+    preds = str(pred_class).split(';')
+
+    if len(preds) >= 2:
+      # return the two highest type predictions
+      prediction = preds[0] + ' and ' + preds[1]
+
+    elif len(preds) == 1 and preds[0].isalnum():
+      # return the one type prediction
+      prediction = preds[0]
+
+    else:
+      # map the classes to the outputs, sort by output values
+      # return the top two type predictions
+      mapping = sorted(zip(classes, outputs), key=lambda x: x[1], reverse=True)
+      prediction = mapping[0][0] + ' and ' + mapping[1][0]
+    
+    
     return JSONResponse({'result': str(prediction)})
 
 
