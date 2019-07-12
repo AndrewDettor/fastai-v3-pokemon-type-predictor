@@ -9,10 +9,28 @@ from starlette.middleware.cors import CORSMiddleware
 from starlette.responses import HTMLResponse, JSONResponse
 from starlette.staticfiles import StaticFiles
 
-export_file_url = 'https://drive.google.com/uc?export=download&id=1LqVGHEi4SL-G0tFvn2D8UeVEQx_bklfW'
+export_file_url = 'https://drive.google.com/uc?export=download&id=1wWjSz1uAp247i4kbGUJfSJSP03BKOqBz'
 export_file_name = 'export.pkl'
 
-classes = ['lakes', 'rivers', 'oceans']
+classes = ['Bug',
+ 'Dark',
+ 'Dragon',
+ 'Electric',
+ 'Fairy',
+ 'Fighting',
+ 'Fire',
+ 'Flying',
+ 'Ghost',
+ 'Grass',
+ 'Ground',
+ 'Ice',
+ 'Normal',
+ 'Poison',
+ 'Psychic',
+ 'Rock',
+ 'Steel',
+ 'Water']
+
 path = Path(__file__).parent
 
 app = Starlette()
