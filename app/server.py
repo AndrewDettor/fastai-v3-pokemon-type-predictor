@@ -94,7 +94,7 @@ async def analyze(request):
 
     if len(preds) >= 2:
       # return the two highest type predictions
-      prediction = preds[0] + ' and ' + preds[1]
+      prediction = preds[0] + '/' + preds[1]
 
     elif len(preds) == 1 and preds[0].isalnum():
       # return the one type prediction
@@ -104,7 +104,7 @@ async def analyze(request):
       # map the classes to the outputs, sort by output values
       # return the top two type predictions
       mapping = sorted(zip(classes, outputs), key=lambda x: x[1], reverse=True)
-      prediction = mapping[0][0] + ' and ' + mapping[1][0]
+      prediction = mapping[0][0] + '/' + mapping[1][0]
     
     
     return JSONResponse({'result': str(prediction)})
